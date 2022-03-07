@@ -119,3 +119,27 @@ export const deleteOrganization = (id) => async (dispatch) => {
         });
     }
 }
+
+export const orgUpdate = (organizations) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.UPDATE_ORGANIZATION_REQUEST,
+        });
+
+        const {data} = await axios.put(`http://localhost:6500/api/organization/${organizations._id}`, organizations);
+        
+        dispatch({
+            type: actionTypes.UPDATE_ORGANIZATION_SUCCESS,
+            payload: data,
+        })
+
+    } catch (error) {
+        dispatch({
+            type: actionTypes.UPDATE_ORGANIZATION_FAIL,
+            payload: 
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    :error.message,
+        });
+    }
+}
