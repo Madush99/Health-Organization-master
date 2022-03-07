@@ -7,7 +7,7 @@ export const listOrg = () => async (dispatch) => {
             type: actionTypes.ORG_LIST_REQUEST,
         });
 
-        const {data} = await axios.post('http://localhost:6500/api/organization/allOrganizations');
+        const {data} = await axios.get('http://localhost:6500/api/organization/allOrganizations');
 
         dispatch({
             type: actionTypes.ORG_LIST_SUCCESS,
