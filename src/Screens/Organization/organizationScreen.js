@@ -1,66 +1,40 @@
 import React, { useEffect } from 'react'
-import { Text, View } from 'react-native';
-import { List } from 'react-native-paper';
-import { ScrollView } from 'react-native-web';
-import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../components/activityIndicator';
-import { listOrg } from '../../Store/actions/oyanizationActions';
-import styles from '../../Styles/styles';
-
+import { Text } from 'react-native-web'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useParams } from 'react-router-dom';
+import Loader from '../../components/activityIndicator.js';
+import {getOrgDetails} from '../../Store/actions/oyanizationActions.js'
 
 
 const OrganizationScreen = () => {
 
-    const dispatch = useDispatch();
+  const { id } = useParams();
 
-    const orgList = useSelector((state) => state.orgList);
-    const { loading, error, organizations } = orgList;
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(listOrg());
-    }, []);
+  const detailsOrg = useSelector((state) => state.detailsOrg);
+  const { loading, error, organizations } = detailsOrg;
 
-    const [expanded, setExpanded] = React.useState(false);
-
-    const handlePress = () => setExpanded(!expanded);
+  useEffect(() => {
+    dispatch(getOrgDetails(id));
+  }, [dispatch]);
 
 
-    return (
+  return (
+    <>
+      { loading ? (
+        <Loader />
+      ) : error ? (
+        <Text> error</Text>
+      ) : (
         <>
-            <ScrollView style={styles.form}>
-                { loading ? (<Loader />
-                ) : error ? (<Text>Error</Text>
-                ) : (
-
-                    <View style={ styles.listcontainer }>
-                        <List.Section title="Organizations">
-                            { organizations.length > 0 && organizations.map(org => {
-                                return (
-                                    <>
-                                    <View style={styles.list}>
-                                        <List.AccordionGroup>
-
-                                            <List.Accordion title={ org.orgName } id="1"
-                                                expanded={ expanded }
-                                                onPress={ handlePress }>
-                                                <List.Item title="View Organization" />
-                                                <List.Item title="Edit Organization" />
-                                                <List.Item title="Delete " />
-                                            </List.Accordion>
-                                        </List.AccordionGroup>
-                                        </View>
-                                    </>
-                                )
-
-                            }) }
-
-                        </List.Section>
-                    </View>
-                ) }
-
-            </ScrollView>
+          <Text>{organizations.orgName}  </Text>
+          <Text> Madusanka</Text>
         </>
-    )
+      ) }
+
+    </>
+  )
 }
 
 export default OrganizationScreen

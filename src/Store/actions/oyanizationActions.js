@@ -49,3 +49,27 @@ export const organizationCreate = (orgName, email) => async (dispatch, getState)
     }
 }
 
+export const getOrgDetails = (id) => async (dispatch) => {
+    try {
+        dispatch({
+            type: actionTypes.ORG_BYID_REQUEST,
+        });
+
+        const { data } = await axios.get(`http://localhost:6500/api/organization/${id}`);
+
+        dispatch({
+            type: actionTypes.ORG_BYID_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: actionTypes.ORG_LIST_FAIL,
+            payload: 
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    :error.message,
+        });
+    }
+}
+
