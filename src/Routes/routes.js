@@ -5,6 +5,7 @@ import AddUserScreen from '../Screens/User/addUserScreen.js';
 import AddOrganizationScreen from '../Screens/Organization/addOrganizationScreen.js'
 import OrganizationHomeScreen from '../Screens/Organization/organizationHomeScreen.js';
 import OrganizationScreen from '../Screens/Organization/organizationScreen.js';
+import AddPatientScreen from '../Screens/Organization/addPatientScreen.js';
 
 
 
@@ -18,6 +19,7 @@ const App = () => {
                 <Route path='/adduser' element={ <AddUserScreen /> } />
                 <Route path='/addorganization' element={ <AddOrganizationScreen /> } />
                 <Route path='/org/:id' element={ <OrganizationScreen /> } />
+                <Route path='/path' element={ <AddPatientScreen /> } />
             </Routes>
         </Router>
     )

@@ -20,8 +20,6 @@
       },
       textinput: {
         height: 30,
-        borderWidth: 0.5,
-        borderColor: '#0f0f0f',
         padding: 4,
         marginVertical: '1rem'
       },

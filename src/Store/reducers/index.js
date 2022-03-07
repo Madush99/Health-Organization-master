@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { listOrg, organizationCreate, organizationDetails } from "./organizationReducer.js";
+import { listOrg, organizationCreate, organizationDetails,addOrgPatient,orgUpdate,organizationDelete } from "./organizationReducer.js";
 import { userCreate } from "./userReducers.js";
 
 
@@ -9,7 +9,9 @@ createUser: userCreate,
 createOrganization: organizationCreate,
 orgList: listOrg,
 detailsOrg: organizationDetails,
-
+addPatient: addOrgPatient,
+updateOrg: orgUpdate,
+deleteOrg: organizationDelete
 });
 
 
