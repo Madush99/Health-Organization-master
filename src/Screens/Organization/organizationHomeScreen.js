@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native-web';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Loader from '../../components/activityIndicator';
 import { listOrg } from '../../Store/actions/oyanizationActions';
 import styles from '../../Styles/styles';
@@ -27,7 +28,7 @@ const OrganizationScreen = () => {
 
     return (
         <>
-            <ScrollView style={styles.form}>
+            <ScrollView style={ styles.form }>
                 { loading ? (<Loader />
                 ) : error ? (<Text>Error</Text>
                 ) : (
@@ -37,17 +38,20 @@ const OrganizationScreen = () => {
                             { organizations.length > 0 && organizations.map(org => {
                                 return (
                                     <>
-                                    <View style={styles.list}>
-                                        <List.AccordionGroup key={org._id}>
+                                        <View style={ styles.list }>
+                                            <List.AccordionGroup key={ org._id }>
 
-                                            <List.Accordion title={ org.orgName } id="1"
-                                                expanded={ expanded }
-                                                onPress={ handlePress }>
-                                                <List.Item title="View Organization" />
-                                                <List.Item title="Edit Organization" />
-                                                <List.Item title="Delete " />
-                                            </List.Accordion>
-                                        </List.AccordionGroup>
+                                                <List.Accordion title={ org.orgName } id="1"
+                                                    expanded={ expanded }
+                                                    onPress={ handlePress }>
+
+                                                    <Link to={ `/org/${org._id}` }>
+                                                        <List.Item title="View Organization" style={ styles.linkStyle } />
+                                                    </Link>
+                                                    <List.Item title="Edit Organization" />
+                                                    <List.Item title="Delete " />
+                                                </List.Accordion>
+                                            </List.AccordionGroup>
                                         </View>
                                     </>
                                 )

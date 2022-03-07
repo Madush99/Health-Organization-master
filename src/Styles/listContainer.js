@@ -10,4 +10,8 @@ export const list = {
         width: '70%',
         backgroundColor: '#ffff'
     },
+
+    linkStyle: {
+        textDecorationLine: 'none',
+    }
 }
