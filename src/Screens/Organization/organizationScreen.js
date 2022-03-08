@@ -45,6 +45,7 @@ const OrganizationScreen = () => {
   useEffect(() => {
     if (orgpatients) {
       alert('Organizations ptients added sucessfully..');
+      window.location.href = '/'
     }
   }, [orgpatients])
 

@@ -34,7 +34,7 @@ const AddOrganizationScreen = ({ history }) => {
     useEffect(() => {
         if (organizations) {
             alert('Organizations added sucessfully..');
-          
+            window.location.href = '/'
         }
     }, [organizations]);
 
