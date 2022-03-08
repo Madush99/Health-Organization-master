@@ -84,7 +84,7 @@ export const orgUpdate = (state = {organizations: {} }, action) => {
                   return { loading: false, error: action.payload }
             case actionTypes.UPDATE_ORGANIZATION_RESET:
                   return {
-                        rooms: {}
+                        organizations: {}
                   }
             default:
                   return state

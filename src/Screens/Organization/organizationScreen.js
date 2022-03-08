@@ -6,19 +6,19 @@ import { addPatientOrg, getOrgDetails } from '../../Store/actions/oyanizationAct
 import {
   Text,
   View,
-  Button
+  Button,
 } from 'react-native';
+import { TextInput } from 'react-native-web';
 import styles from '../../Styles/styles.js';
 
-import { TextInput } from 'react-native-paper';
 
 
 const OrganizationScreen = () => {
 
   const { id } = useParams();
 
-  const [organization, setOrganization] = useState('');
-  const [orgId, setOrgId] = useState('');
+  const [orgId, setOrgId] = useState(id);
+  const [orgsName, setorgsName] = useState('');
   const [patientName, setPatientName] = useState('');
   const [patientEmail, setPatientEmail] = useState('');
 
@@ -32,77 +32,76 @@ const OrganizationScreen = () => {
 
 
   useEffect(() => {
-    dispatch(getOrgDetails(id));
-   
-  }, [dispatch]);
+
+    if (!organizations||!organizations.orgName || organizations._id !== id) {
+      dispatch(getOrgDetails(id))
+  } else {
+      setorgsName(organizations.orgName)
+  }
+
+
+  }, [dispatch, organizations]);
 
   useEffect(() => {
-      if(orgpatients){
-        alert('Organizations ptients added sucessfully..');
-      }
-  }, [])
+    if (orgpatients) {
+      alert('Organizations ptients added sucessfully..');
+    }
+  }, [orgpatients])
 
   const submitHandler = () => {
-    dispatch(addPatientOrg(organization, orgId, patientName, patientEmail));
+    dispatch(addPatientOrg(orgsName, orgId, patientName, patientEmail));
   }
 
   return (
     <>
-     
-     { loading || addloading ? (
+
+      { addloading && <Text>Loading....</Text> }
+      { adderror && <Text>error..</Text> }
+
+      { loading ? (
         <Loader />
-      ) : error || adderror ? (
+      ) : error ? (
         <Text> error</Text>
       ) : (
         <>
-        <View style={ styles.form }></View>
+          <View style={ styles.form }></View>
           <View style={ styles.container }>
             <Text style={ styles.heading }>ADD ORGANIZATION</Text>
 
-            
-            <Text style={ styles.heading2 }>Organization ID</Text>
+          
+            <Text style={ styles.heading2 }>Enter Organization Email</Text>
             <TextInput
               blurOnSubmit={ true }
-              type='hidden'
+              placeholder="email"
               style={ styles.textinput }
               autoFocus={ true }
-              value={organizations._id}
-              onChangeText={ setOrgId }
+              value={orgsName}
+              onChangeText={setorgsName}
             />
-            <Text style={ styles.heading2 }>Organization Name</Text>
-            <TextInput
-              blurOnSubmit={ true }
-              style={ styles.textinput }
-             
-              value={organizations.orgName}
-              onChangeText={ setOrganization }
-              hidden = 'true'
-
-            />
-            <Text style={ styles.heading2 }>Enter Patients Name</Text>
+            <Text style={ styles.heading2 }>Enter patient name</Text>
             <TextInput
               blurOnSubmit={ true }
 
-              placeholder="pname"
+              placeholder="email"
               style={ styles.textinput }
               autoFocus={ true }
-
               onChangeText={ setPatientName }
             />
-             <Text style={ styles.heading2 }>Enter Patients Email</Text>
+            <Text style={ styles.heading2 }>Enter pateint Email</Text>
             <TextInput
               blurOnSubmit={ true }
 
-              placeholder="patiebtemail"
+              placeholder="email"
               style={ styles.textinput }
               autoFocus={ true }
-
+             
               onChangeText={ setPatientEmail }
             />
 
             <Button title="Button" onPress={ submitHandler } />
 
           </View>
+
 
         </>
 

@@ -49,13 +49,13 @@ export const organizationCreate = (orgName, email) => async (dispatch, getState)
     }
 }
 
-export const addPatientOrg = (organizations, orgId, patientName, patientEmail) => async (dispatch) => {
+export const addPatientOrg = (orgsName, orgId, patientName, patientEmail) => async (dispatch) => {
     try {
         dispatch({
             type: actionTypes.ADD_ORGUSER_REQUEST,
         });
 
-        const {data} = await axios.post('http://localhost:6500/api/orgPatient/addPatient', {organizations, orgId, patientName, patientEmail});
+        const {data} = await axios.post('http://localhost:6500/api/orgPatient/addPatient', {orgsName, orgId, patientName, patientEmail});
 
         dispatch({
             type: actionTypes.ADD_ORGUSER_SUCCESS,

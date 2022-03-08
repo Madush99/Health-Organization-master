@@ -24,10 +24,10 @@ const OrganizationScreen = () => {
 
     useEffect(() => {
         dispatch(listOrg());
-        if(successDelete){
+        if (successDelete) {
             alert("Organization deleted successfully");
         }
-    }, [dispatch,successDelete]);
+    }, [dispatch, successDelete]);
 
     const deleteHandler = (id) => {
         dispatch(deleteOrganization(id))
@@ -60,8 +60,10 @@ const OrganizationScreen = () => {
                                                     <Link to={ `/org/${org._id}` }>
                                                         <List.Item title="View Organization" style={ styles.linkStyle } />
                                                     </Link>
+                                                    <Link to={ `/org/update/${org._id}` }>
                                                     <List.Item title="Edit Organization" />
-                                                    <List.Item title="Delete " onPress={() => deleteHandler(org._id)}/>
+                                                    </Link>
+                                                    <List.Item title="Delete " onPress={ () => deleteHandler(org._id) } />
                                                 </List.Accordion>
                                             </List.AccordionGroup>
                                         </View>
