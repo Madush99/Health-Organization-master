@@ -32,14 +32,14 @@ export const organizationCreate = (state = {}, action) => {
     }
 }
 
-export const addOrgPatient = (state = {}, actions) => {
-    switch (actions.type) {
+export const addOrgPatient = (state = {}, action) => {
+    switch (action.type) {
         case actionTypes.ADD_ORGUSER_REQUEST:
             return { loading: true }
         case actionTypes.ADD_ORGUSER_SUCCESS:
-            return { loading: false, orgpatients: actions.payload }
+            return { loading: false, orgpatients: action.payload }
         case actionTypes.ADD_ORGUSER_FAIL:
-            return { loading: false, error: actions.payload }
+            return { loading: false, error: action.payload }
         case actionTypes.ADD_ORGUSER_RESET:
             return {}
         default:

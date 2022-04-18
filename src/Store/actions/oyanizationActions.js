@@ -42,10 +42,13 @@ export const organizationCreate = (orgName, email) => async (dispatch, getState)
         dispatch({
             type: actionTypes.CREATE_ORGANIZATION_FAIL,
             payload: 
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    :error.message,
+            error.response && error.response.data.message
+            ? error.response.data.message
+            :error.message,
+            
         });
+        
+       console.log(error.response.data)
     }
 }
 

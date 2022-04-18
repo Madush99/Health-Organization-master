@@ -27,11 +27,11 @@ const AddUserScreen = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
+  // const [confirmPassword, setConfirmPassword] = useState("")
 
   const [emailValidError, setEmailValidError] = useState("");
   const [passwordValidError, setPasswordValidError] = useState("")
-  const [confirmPasswordValidError, setConfirmPasswordValidError] = useState("")
+  // const [confirmPasswordValidError, setConfirmPasswordValidError] = useState("")
 
   const dispatch = useDispatch();
 
@@ -82,11 +82,13 @@ const AddUserScreen = ({ history }) => {
     }
   };
 
-  const handleconfirmPassword = () => {
-    if(confirmPassword !== password){
-      setConfirmPasswordValidError('password does not match')
-    }
-  }
+  // const handleconfirmPassword = (value) => {
+  //   if(password === confirmPassword){
+  //     setConfirmPasswordValidError(' ')
+  //   }else if (password !== confirmPassword) {
+  //     setConfirmPasswordValidError('fdfsdg')
+  //   }
+  // }
 
   const nextFocus = React.useRef(null);
 
@@ -97,22 +99,18 @@ const AddUserScreen = ({ history }) => {
   };
 
 
-  //   function password_validate(p) {
-  //     return /[A-Z]/.test(p) && /[0-9]/.test(p) && !/[aeiou]/.test(p) && /[A-Za-z0-9]{7,13}$/.test(p);
-  // }
-
   return (
     <>
 
       <ScrollView>
         <View style={ styles.form }></View>
-        { loading && <Text>Loading....</Text> }
-        { error && <Text>error..</Text> }
 
         { loading ? (
           <ActivityIndicator />
         ) : error ? (
-          <Text>error....</Text>
+          <View style={ styles.containerMeassge }>
+            <Text style={ styles.valtext2 }>Error..Must  fill the  form</Text>
+          </View>
         ) : (
           <View style={ styles.container }>
             <Text style={ styles.heading }>Register  User</Text>
@@ -120,7 +118,7 @@ const AddUserScreen = ({ history }) => {
             <Text style={ styles.heading2 }>Enter Your Name</Text>
             <TextInput
               blurOnSubmit={ true }
-              required={ true }
+             
               placeholder="Name"
 
               style={ styles.textinput }
@@ -143,7 +141,7 @@ const AddUserScreen = ({ history }) => {
                 handleValidEmail(value)
               } }
             />
-            { emailValidError ? <Text style={styles.valtext }>{ emailValidError }</Text> : null }
+            { emailValidError ? <Text style={ styles.valtext }>{ emailValidError }</Text> : null }
             <Text style={ styles.heading2 }>Enter Your Password</Text>
             <TextInput
               blurOnSubmit={ true }
@@ -158,8 +156,8 @@ const AddUserScreen = ({ history }) => {
               } }
             />
             <View></View>
-        {passwordValidError ? <Text style={styles.valtext}>{ passwordValidError}</Text>: null}
-        
+            { passwordValidError ? <Text style={ styles.valtext }>{ passwordValidError }</Text> : null }
+            {/*         
             <Text style={ styles.heading2 }>Confirm Your Password</Text>
             <TextInput
               blurOnSubmit={ true }
@@ -167,17 +165,17 @@ const AddUserScreen = ({ history }) => {
               placeholder="confirm password"
               style={ styles.textinput }
               autoFocus={ true }
-              value={ confirmPassword }
+              value={confirmPassword}
               onChangeText={ value => {
                 setConfirmPassword(value);
-                handleconfirmPassword(value)
-
-              } }
+                
+              }
+              }
             />
             
-            {confirmPasswordValidError ? <Text style={styles.valtext}>{ confirmPasswordValidError}</Text>: null}
+            {confirmPasswordValidError ? <Text style={styles.valtext}>{ confirmPasswordValidError}</Text>: null} */}
             <View style={ styles.form }></View>
-            <Button title="Button" onPress={ submitHandler } />
+            { emailValidError || passwordValidError ? <Button title="Button" disabled={ true } onPress={ submitHandler } /> : <Button title="Button" onPress={ submitHandler } /> }
           </View>
 
         ) }

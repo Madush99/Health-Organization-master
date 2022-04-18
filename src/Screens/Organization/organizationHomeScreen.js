@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { List } from 'react-native-paper';
 import { ScrollView } from 'react-native-web';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-native';
 import Loader from '../../components/activityIndicator.js';
 import { deleteOrganization, listOrg } from '../../Store/actions/oyanizationActions.js';
 import styles from '../../Styles/styles.js';
@@ -58,7 +58,7 @@ const OrganizationScreen = () => {
                                                     onPress={ handlePress }>
 
                                                     <Link to={ `/org/${org._id}` }>
-                                                        <List.Item title="View Organization" style={ styles.linkStyle } />
+                                                        <List.Item title="Add Patients" style={ styles.linkStyle } />
                                                     </Link>
                                                     <Link to={ `/org/update/${org._id}` }>
                                                     <List.Item title="Edit Organization" />

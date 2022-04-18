@@ -10,6 +10,7 @@
         color: 'black',
         fontWeight: 'bold',
         fontSize: '17px',
+        
       },
       container: {
         paddingTop:'1px',
@@ -21,7 +22,8 @@
       textinput: {
         height: 30,
         padding: 4,
-        marginVertical: '1rem'
+        marginVertical: '1rem',
+        backgroundColor: "#ebf0fa",
       },
       multiline: {
         borderWidth: 0.5,

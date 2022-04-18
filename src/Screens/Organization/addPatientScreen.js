@@ -49,7 +49,9 @@ const AddPatientScreen = () => {
     { loading ? (
         <Loader />
       ) : error ? (
-        <Text> error</Text>
+        <View style={ styles.containerMeassge }>
+            <Text style={ styles.valtext2 }>User Exist</Text>
+          </View>
       ) : (
         <>
           <View style={ styles.container }>

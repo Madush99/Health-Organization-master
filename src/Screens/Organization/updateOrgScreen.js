@@ -62,8 +62,6 @@ const UpdateOrgScreen = ({ history }) => {
 
             <ScrollView>
                 <View style={ styles.form }></View>
-                { loadingUpdate && <Text>Loading....</Text> }
-                { errorUpdate && <Text>error..</Text> }
 
                 { loading ? (
                     <ActivityIndicator />
@@ -73,7 +71,7 @@ const UpdateOrgScreen = ({ history }) => {
                     <View style={ styles.container }>
                         <Text style={ styles.heading }>UPDATE ORGANIZATION</Text>
 
-                        <Text style={ styles.heading2 }>Enter Organization Name</Text>
+                        <Text style={ styles.heading2 }> Organization Name</Text>
                         <TextInput
                             blurOnSubmit={ true }
 
@@ -84,7 +82,7 @@ const UpdateOrgScreen = ({ history }) => {
                             onChangeText={ setOrgName }
 
                         />
-                        <Text style={ styles.heading2 }>Enter Organization Email</Text>
+                        <Text style={ styles.heading2 }>Organization Email</Text>
                         <TextInput
                             blurOnSubmit={ true }
 

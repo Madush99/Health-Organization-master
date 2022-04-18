@@ -8,7 +8,7 @@ import {
   View,
   Button,
 } from 'react-native';
-import { TextInput } from 'react-native-web';
+import { ScrollView, TextInput } from 'react-native-web';
 import styles from '../../Styles/styles.js';
 
 
@@ -21,6 +21,7 @@ const OrganizationScreen = () => {
   const [orgsName, setorgsName] = useState('');
   const [patientName, setPatientName] = useState('');
   const [patientEmail, setPatientEmail] = useState('');
+  const [emailValidError, setEmailValidError] = useState("");
 
   const dispatch = useDispatch();
 
@@ -33,18 +34,18 @@ const OrganizationScreen = () => {
 
   useEffect(() => {
 
-    if (!organizations||!organizations.orgName || organizations._id !== id) {
+    if (!organizations || !organizations.orgName || organizations._id !== id) {
       dispatch(getOrgDetails(id))
-  } else {
+    } else {
       setorgsName(organizations.orgName)
-  }
+    }
 
 
-  }, [dispatch, organizations]);
+  }, [dispatch, organizations,orgpatients]);
 
   useEffect(() => {
     if (orgpatients) {
-      alert('Organizations ptients added sucessfully..');
+      alert('Organizations patients added sucessfully..');
       window.location.href = '/'
     }
   }, [orgpatients])
@@ -53,62 +54,83 @@ const OrganizationScreen = () => {
     dispatch(addPatientOrg(orgsName, orgId, patientName, patientEmail));
   }
 
+  const handleValidEmail = val => {
+    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+
+    if (val.length === 0) {
+      setEmailValidError('email address must be enter');
+    } else if (reg.test(val) === false) {
+      setEmailValidError('enter valid email address');
+    } else if (reg.test(val) === true) {
+      setEmailValidError('');
+    }
+  };
+
   return (
     <>
+      <ScrollView>
+        <View style={ styles.form }></View>
+        { addloading && <Loader /> }
+        { adderror && <View style={ styles.containerMeassge }>
+          <Text style={ styles.valtext2 }>{adderror}</Text>
+        </View> }
 
-      { addloading && <Text>Loading....</Text> }
-      { adderror && <Text>error..</Text> }
-
-      { loading ? (
-        <Loader />
-      ) : error ? (
-        <Text> error</Text>
-      ) : (
-        <>
-          <View style={ styles.form }></View>
-          <View style={ styles.container }>
-            <Text style={ styles.heading }>ADD ORGANIZATION</Text>
-
-          
-            <Text style={ styles.heading2 }>Enter Organization Email</Text>
-            <TextInput
-              blurOnSubmit={ true }
-              placeholder="email"
-              style={ styles.textinput }
-              autoFocus={ true }
-              value={orgsName}
-              onChangeText={setorgsName}
-            />
-            <Text style={ styles.heading2 }>Enter patient name</Text>
-            <TextInput
-              blurOnSubmit={ true }
-
-              placeholder="email"
-              style={ styles.textinput }
-              autoFocus={ true }
-              onChangeText={ setPatientName }
-            />
-            <Text style={ styles.heading2 }>Enter pateint Email</Text>
-            <TextInput
-              blurOnSubmit={ true }
-
-              placeholder="email"
-              style={ styles.textinput }
-              autoFocus={ true }
-             
-              onChangeText={ setPatientEmail }
-            />
-
-            <Button title="Button" onPress={ submitHandler } />
-
+        { loading ? (
+          <Loader />
+        ) : error ? (
+          <View style={ styles.containerMeassge }>
+            <Text style={ styles.valtext2 }>{error}</Text>
           </View>
+        ) : (
+          <>
+            <View style={ styles.form }></View>
+            <View style={ styles.container }>
+              <Text style={ styles.heading }>ADD PATIENT TO ORGANIZATION</Text>
 
 
-        </>
+              <Text style={ styles.heading2 }>Organization Email</Text>
+              <TextInput
+                blurOnSubmit={ true }
+                placeholder="email"
+                style={ styles.textinput }
+                autoFocus={ true }
+                value={ orgsName }
+                onChangeText={ setorgsName }
+                editable={false}
+              />
+              <Text style={ styles.heading2 }>Enter patient name</Text>
+              <TextInput
+                blurOnSubmit={ true }
 
-      ) }
+                placeholder="Patient Name"
+                style={ styles.textinput }
+                autoFocus={ true }
+                onChangeText={ setPatientName }
+              />
+              <Text style={ styles.heading2 }>Enter pateint Email</Text>
+              <TextInput
+                blurOnSubmit={ true }
+
+                placeholder="email"
+                style={ styles.textinput }
+                autoFocus={ true }
+                value={ patientEmail }
+                onChangeText={ value => {
+                  setPatientEmail(value);
+                  handleValidEmail(value);
+                } }
+              />
+              { emailValidError ? <Text style={ styles.valtext }>{ emailValidError }</Text> : null }
+              { emailValidError ? <Button title="Button" disabled={ true } onPress={ submitHandler } /> : <Button title="Button" onPress={ submitHandler } /> }
+
+            </View>
 
 
+          </>
+
+        ) }
+
+      </ScrollView>
 
     </>
   )
